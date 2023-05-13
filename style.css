@@ -81,3 +81,8 @@ body{
     50%{transform: scale(1.2);}
     100%{transform: scale(1);}
 }
+@media (max-width: 1079px){
+    .container{
+        margin-top: -2vmin;
+    }
+}
