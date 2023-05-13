@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sequence Safari</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        @font-face {
+            font-family: New;
+            src: url(led_board-7.ttf);
+        }
+        @font-face {
+            font-family: New2;
+            src: url(Vampire.ttf);
+        }
+    </style>
+    <link rel="icon" href="snake.png">
+
+</head>
+
+<body>
+    <div class="container" id="container">
+        <div class="main">
+            
+            <div class="title">
+                <!-- <img src="snake.png" style="width: 6vmin;height: 6vmin;"> -->
+                &nbsp;  Sequence Safari  &nbsp; 
+                <!-- <img src="dead.svg" style="width: 6vmin;height: 6vmin;"> -->
+            </div>
+            
+            <div class="modes">
+                <button class="Normal" id="Normal" onclick="location.href='Normal.html'">Normal</button>
+                <button class="Hacker" id="Hacker" onclick="location.href='Hacker.html'">Hacker</button>
+                <button class="plus" id="plus" onclick="Player.showModal()">Hacker++</button>
+            </div>
+
+            <div class="footer">Made with 🤍 by <a href="https://github.com/AkhshayMahesh" style="color: white;">Akhshay Mahesh AN</a></div>
+        </div>
+    </div>
+    <dialog id="Player" class="Player">
+        <div style="display: flex;justify-content: space-around;">
+        <button class="player" id="single" onclick="location.href='Hacker++.html'">SINGLE PLAYER</button>
+        <button class="player" id="double" onclick="location.href='Hacker++D.html'">DOUBLE PLAYER</button>
+        </div>
+    </dialog>
+    
+</body>
+
+</html>

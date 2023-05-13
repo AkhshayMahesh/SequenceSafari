@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sequence Safari</title>
+    <link rel="stylesheet" href="Hacker.css">
+    <style>
+        @font-face {
+            font-family: New;
+            src: url(led_board-7.ttf);
+        }
+    </style>
+    <link rel="icon" href="snake.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+</head>
+
+<body>
+    <div class="outer">
+
+        <div class="inner1">
+            <div class="life target" id="life"></div>
+            <div class="score" id="score1">0</div>
+            <div class="topscore" id="topscore">
+                <div class="topinner" id="topinner"> 0</div>
+            </div>
+            <div class="target control">
+                <i class="bi bi-arrow-counterclockwise" id="reset" onclick="reset()"></i>
+                <i class="bi bi-pause-fill" id="pause" onclick="pause()"></i>
+                <i class="bi bi-volume-up-fill" id="vol" onclick="mutePage()"></i>
+            </div>
+        </div>
+
+        <div class="mid" id="mid">
+            <div class="board" id="board"></div>
+            <div class="size" id="size"></div>
+        </div>
+
+        <div class="inner3">
+            <section>
+                <div class="container">
+                    <h1>00:00</h1>
+                </div>
+            </section>
+            <!-- <div class="life2 life target" id="life"></div> -->
+            <div class="move" id="move">
+                <div class="btn1">
+                    <button id="up" class="btn bi bi-arrow-up-short"></button>
+                </div>
+                <div class="btn1">
+                    <button id="left" class="btn bi bi-arrow-left-short"></button>
+                    <div class="btn bordernone"></div>
+                    <button id="right" class="btn bi bi-arrow-right-short"></button>
+                </div>
+                <div class="btn1">
+                    <button id="down" class="btn bi bi-arrow-down-short"></button>
+                </div>
+            </div>
+            <div>
+                <div class="target target1">Target</div>
+                <div class="target" id="target"></div>
+            </div>
+        </div>
+
+    </div>
+    <dialog class="paused" id="paused">
+        <i class="bi bi-pause-circle-fill"></i><br>
+        <button class="playagain" id="resume" onclick="pause()">Resume</button>
+    </dialog>
+    <dialog class="gameover" id="gameover">
+        <img src="dead.svg" style="width: 20vmin;height: 20vmin;">
+        <h2>Ah! Game Over!</h2>
+        <div>
+            <button class="home playagain" id="home" onclick="location.href='index.html'">Home</button>
+            <button class="playagain" id="playagain" onclick="reset()">Play Again</button>
+        </div>
+    </dialog>
+    <dialog class="land" id="land">
+        <img src="snake.png" style="height:20vmin;width:20vmin;">
+        <p>Welcome to Snake Safari!! </p>
+        <label for="bs">Board Size</label>
+        <input type="number" id="bs" min="10" max="30" placeholder="10-30 (eg.20)"/><br><br>
+        <button id="play" class="playagain" onclick="initGame()">Play</button>
+    </dialog>
+    <script src="Hacker.js"></script>
+</body>
+
+</html>

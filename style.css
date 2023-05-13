@@ -1,0 +1,83 @@
+*{
+    margin: auto;
+    padding: 0;
+    text-decoration: none;
+    
+}
+body{
+    background-image: url("abstract-wavy-green-background-free-vector.jpg");
+    background-size: cover;
+    color:white
+}
+.container{
+    width: 100vw;
+    height: 98vh;
+    display: flex;
+    justify-content: center;
+}
+.main{
+    width:110vmin;
+    height: 100%;
+    display: flex;
+    flex-direction:column ;
+}
+.title{
+    display: flex;
+    align-items: center;
+    padding: 2vmin;
+    font-family: New2;
+    font-size: 10vmin;
+    margin-bottom: -2vmin;
+}
+.modes{
+    display: flex;
+    flex-direction: column;
+}
+.modes>button, .Player>div>button{
+    text-decoration: none;
+    border: none;
+    font-family:New2;
+    margin: 3vmin;
+    font-size: 4.5vmin;
+    border-radius: 1.5vmin;
+    padding: 2vmin 3vmin;
+    cursor: pointer;
+    font-weight:100;
+    color:white;
+}
+#Normal:hover,#Hacker:hover,#plus:hover,#single:hover,#double:hover{
+    transform: scale(1.05);
+}
+#Normal{
+    background-color: rgb(10, 179, 10);
+}
+#Hacker{
+    background-color: blue;
+}
+#plus{
+    background-color: red;
+}
+.footer{
+    margin-bottom: 0.5vmin;
+    font-family: 'Courier New', Courier, monospace;
+}
+.Player{
+    border: none;
+    border-radius: 3vmin;
+    box-shadow: 2vmin 5vmin 4vmin 3vmin;
+    animation: zoom 0.5s 1 forwards;
+}
+.Player>div>button{
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+#single{
+    background-color: rgb(255, 0, 0);
+}
+#double{
+    background-color: blue;
+}
+@keyframes zoom {
+    0%{transform: scale(0.25);}
+    50%{transform: scale(1.2);}
+    100%{transform: scale(1);}
+}
