@@ -85,4 +85,8 @@ body{
     .container{
         margin-top: -2vmin;
     }
+    .footer{
+        margin-bottom: 6vmin;
+        color: black;
+    }
 }
