@@ -56,7 +56,9 @@ function stoptime() {
 function initGame() {
     if (!pagemuted) obss.play()
     bsize = parseInt(document.getElementById("bs").value)
+    isNaN(bsize)?(bsize=20):(bsize=bsize)
     player = document.getElementById("name").value
+    isNaN(player)?(player="User1"):(player=player)
     document.getElementById("size").innerHTML = `Board Size: ${bsize}`
     document.getElementById("pname").innerHTML=`${player}`
     let ba = []
@@ -597,8 +599,8 @@ function playSaved() {
     player = JSON.parse(localStorage.getItem("name"))
 
     if (snake == null) {
-        bsize = 20
         initGame()
+        return
     }
 
     let ba = []
