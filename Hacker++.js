@@ -4,12 +4,12 @@ let lastPaintTime = 0
 let speed = 10
 let move = { x: 0, y: 0 }
 let snake = [{ x: 0, y: 0 }, { x: 0, y: 0 }, { x: 0, y: 0 }]
-let word = ["LIGHT", "MIGHT", "SNAKE", "WHITE", "FLAKE", "POISE", "NOISE", "VOICE", "VOCAL", "ABODE", "CHASE", "CABIN", "RIGHT", "FOCAL", "TRAIN", "WASTE", "EIGHT", "YACHT", "ADOPT", "CRATE", "SEDAN", "PASTE", "PAINT", "FAINT", "WHALE", "QUAIL", "IMAGE", "ZEBRA", "BRAVE", "CRAVE", "DREAM", "STEAM", "STARE", "FLARE", "GREAT", "SHALE", "WHIRL", "WHOLE", "WAFER", "WORTH", "WEIRD", "WRONG", "WORST", "WATER", "WASTE", "WORLD", "WORDS", "WOMEN"]
+let word = ["LIGHT", "MIGHT", "SNAKE", "WHITE", "FLAKE", "POISE", "NOISE", "VOICE", "VOCAL", "ABODE", "CHASE", "CABIN", "RIGHT", "FOCAL", "TRAIN", "WASTE", "EIGHT", "YACHT", "ADOPT", "CRATE", "SEDAN", "PASTE", "PAINT", "FAINT", "WHALE", "QUAIL", "IMAGE", "ZEBRA", "BRAVE", "CRAVE", "DREAM", "STEAM", "STARE", "FLARE", "GREAT", "SHALE", "WHIRL", "WHOLE", "WAFER", "WORTH", "WEIRD", "WRONG", "WORST", "WATER", "WASTE", "WORLD", "WORDS", "WOMEN", "BOOKS", "SCENE", "COOKS", "FLEET", "CREEP"]
 let food = [{ x: 0, y: 0, c: "orange" }, { x: 0, y: 0, c: "blue" }, { x: 0, y: 0, c: "cyan" }, { x: 0, y: 0, c: "red" }, { x: 0, y: 0, c: "brown" }]
-let target = { x: 0, y: 0 }
+let target = []
 let t = 60
 let score = 0
-let countDown
+let countDown, a
 let gamepaused = 0
 let best = document.getElementById("topinner")
 let max, player
@@ -82,7 +82,7 @@ function initGame() {
     portal = [{ x: 3, y: 4 }, { x: bsize - 3, y: bsize - 5 }]
     blocks = { x: 0, y: 0 }
     snake = [{ x: 0, y: 0 }, { x: 0, y: 0 }, { x: 0, y: 0 }]
-    target = { x: 0, y: 0 }
+    target = []
     score = 0
     createPortal()
     createSnake()
@@ -92,8 +92,22 @@ function initGame() {
     drawBoard()
     drawFood()
     drawlife()
-    target.x = food[0].x
-    target.y = food[0].y
+    target.push({
+            x: (food[0].x),
+            y: (food[0].y),
+            c: (food[0].c),
+            d: 0
+        })
+    for (let j = 1; j < food.length; j++) {
+        if (food[0].c == food[j].c) {
+            target.push({
+                x: (food[j].x),
+                y: (food[j].y),
+                c: (food[j].c),
+                d: j
+            })
+        }
+    }
     max = localStorage.getItem("best")
     if (max == undefined || max == null) {
         localStorage.setItem("best", 0)
@@ -231,13 +245,14 @@ function drawBoard() {
 }
 
 function drawFood() {
+    a= 0
     let gameBoard = document.getElementById("target")
     gameBoard.innerHTML = ""
     for (let i = 0; i < food.length; i++) {
         let tileDiv = document.createElement("div")
         tileDiv.classList.add("food")
         tileDiv.innerHTML = `${food[i].c}`
-        tileDiv.id = `${food[i].c}`
+        tileDiv.id = `${a+i}food`
         gameBoard.append(tileDiv)
     }
 }
@@ -262,6 +277,12 @@ function animate(curr) {
     }
     lastPaintTime = curr;
     game()
+}
+
+const swapElements = (array, index1, index2) => {
+    let temp = array[index1]
+    array[index1] = array[index2]
+    array[index2] = temp
 }
 
 function isCollide() {
@@ -349,28 +370,47 @@ function game() {
         window.cancelAnimationFrame(myReq)
     }
 
-    if (snake[0].x == target.x && snake[0].y == target.y) {
-        if (!pagemuted) eats.play()
-        tile = document.getElementById(`${food[0].c}`)
-        tile.classList.add("complete")
-        food.shift()
-        score++
-        k++
-        if (food.length == 0) {
-            createFood()
-            drawFood()
-            t += 30
-            snake.unshift({
-                x: (snake[0].x + move.x),
-                y: (snake[0].y + move.y)
+    for (let i = 0; i < target.length; i++) {
+        if (snake[0].x == target[i].x && snake[0].y == target[i].y) {
+            if (!pagemuted) eats.play()
+            swapElements(food, 0, target[i].d)
+            tile = document.getElementById(`${a}food`)
+            tile.classList.add("complete")
+            food.shift()
+            target = []
+            a++
+            score++
+            k++
+            if (food.length == 0) {
+                createFood()
+                drawFood()
+                t += 30
+                snake.unshift({
+                    x: (snake[0].x + move.x),
+                    y: (snake[0].y + move.y)
+                })
+                speed += 1
+            }
+            target.push({
+                x: (food[0].x),
+                y: (food[0].y),
+                c: (food[0].c),
+                d: 0
             })
-            speed += 1
-        }
-        target.x = food[0].x
-        target.y = food[0].y
-        if (score > max) {
-            max = score
-            localStorage.setItem("best", max)
+            for (let j = 1; j < food.length; j++) {
+                if (food[0].c == food[j].c) {
+                    target.push({
+                        x: (food[j].x),
+                        y: (food[j].y),
+                        c: (food[j].c),
+                        d: j
+                    })
+                }
+            }
+            if (score > max) {
+                max = score
+                localStorage.setItem("best", max)
+            }
         }
     }
 
