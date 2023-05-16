@@ -1,11 +1,11 @@
 let bsize = 20
 let board = []
 let lastPaintTime = 0
-let speed = 10
+let speed = 9
 let move = { x: 0, y: 0 }
 let snake = [{ x: 0, y: 0 }, { x: 0, y: 0 }, { x: 0, y: 0 }]
 let word = ["LIGHT", "MIGHT", "SNAKE", "WHITE", "FLAKE", "POISE", "NOISE", "VOICE", "VOCAL", "ABODE", "CHASE", "CABIN", "RIGHT", "FOCAL", "TRAIN", "WASTE", "EIGHT", "YACHT", "ADOPT", "CRATE", "SEDAN", "PASTE", "PAINT", "FAINT", "WHALE", "QUAIL", "IMAGE", "ZEBRA", "BRAVE", "CRAVE", "DREAM", "STEAM", "STARE", "FLARE", "GREAT", "SHALE", "WHIRL", "WHOLE", "WAFER", "WORTH", "WEIRD", "WRONG", "WORST", "WATER", "WASTE", "WORLD", "WORDS", "WOMEN", "BOOKS", "SCENE", "COOKS", "FLEET", "CREEP"]
-let food = [{ x: 0, y: 0, c: "orange" }, { x: 0, y: 0, c: "blue" }, { x: 0, y: 0, c: "cyan" }, { x: 0, y: 0, c: "red" }, { x: 0, y: 0, c: "brown" }]
+let food = []
 let target = []
 let t = 60
 let score = 0
@@ -61,7 +61,7 @@ function player1(){
     bsize = parseInt(document.getElementById("bs").value)
     isNaN(bsize)?(bsize=20):(bsize=bsize)
     player = document.getElementById("name").value
-    isNaN(player)?(player="User1"):(player=player)
+    if (player==="") (player="User1")
     document.getElementById("size").innerHTML = `Board Size: ${bsize}`
     document.getElementById("pname").innerHTML=`${player}`
     initGame()
@@ -73,7 +73,7 @@ function player2(){
     bsize = parseInt(document.getElementById("bs2").value)
     isNaN(bsize)?(bsize=20):(bsize=bsize)
     player = document.getElementById("name2").value
-    isNaN(player)?(player="User2"):(player=player)
+    if (player==="") (player="User2")
     document.getElementById("size").innerHTML = `Board Size: ${bsize}`
     document.getElementById("pname").innerHTML=`${player}`
     initGame()
@@ -95,7 +95,7 @@ function initGame() {
     document.getElementById("vol").classList.add("bi-volume-up-fill")
     stoptime()
     t = 60
-    speed = 10
+    speed = 9
     timer()
     life = [1, 1, 1, 1]
     gamepaused = 0
@@ -207,7 +207,7 @@ function createBuff() {
 function createBlock() {
     let s1 = Math.floor(Math.random() * (bsize - 1) + 1)
     let s2 = Math.floor(Math.random() * (bsize - 1) + 1)
-    if (board[s1][s2] == "none") {
+    if (board[s1][s2] == "none" && s1!=snake[0].x) {
         blocks.x = s1
         blocks.y = s2
         board[s1][s2] = "cyan"
@@ -296,6 +296,7 @@ function animate(curr) {
     if ((curr - lastPaintTime) / 1000 < (1 / speed)) {
         return;
     }
+    // console.log((curr - lastPaintTime));
     lastPaintTime = curr;
     game()
 }
@@ -423,7 +424,6 @@ function game() {
             target = []
             a++
             score++
-            k++
             if (food.length == 0) {
                 createFood()
                 drawFood()
